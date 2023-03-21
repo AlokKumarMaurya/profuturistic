@@ -22,6 +22,8 @@ import '../modules/popularCourseDetail/bindings/popular_course_detail_binding.da
 import '../modules/popularCourseDetail/views/popular_course_detail_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/purchasedPopularCourse/bindings/purchased_popular_course_binding.dart';
+import '../modules/purchasedPopularCourse/views/purchased_popular_course_view.dart';
 
 part 'app_routes.dart';
 
@@ -91,6 +93,11 @@ class AppPages {
       name: _Paths.POPULAR_COURSE_DETAIL,
       page: () => const PopularCourseDetailView(),
       binding: PopularCourseDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.PURCHASED_POPULAR_COURSE,
+      page: () => const PurchasedPopularCourseView(),
+      binding: PurchasedPopularCourseBinding(),
     ),
   ];
 }

@@ -4,6 +4,7 @@ import 'package:profuturistic/app/data/helperWidget/appDimensions.dart';
 import 'package:profuturistic/app/data/helperWidget/appHelperWidget.dart';
 
 import '../../../data/appHelperFunction.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/popular_course_detail_controller.dart';
 
 class PopularCourseDetailView extends GetView<PopularCourseDetailController> {
@@ -42,8 +43,7 @@ class PopularCourseDetailView extends GetView<PopularCourseDetailController> {
                       buttonPadding: 0.5,
                       buttonRadius: 0,
                       textColor: Theme.of(Get.context!).scaffoldBackgroundColor,
-                      onClick: () => AppHelperFunction()
-                          .showGoodSnackBar(message: "Tap is working fine")),
+                      onClick: () => Get.toNamed(Routes.PURCHASED_POPULAR_COURSE)),
                   AppDimensions().vSpace30(),
                 ],
               ),

@@ -8,6 +8,7 @@ ThemeData light({Color color = Colors.red}) => ThemeData(
     scaffoldBackgroundColor: Colors.white,
     primaryColorDark: const Color(0xff054c7c),
     errorColor: Colors.red,
+    shadowColor: const Color(0xff282626),
     hoverColor: Colors.transparent,
     dividerColor: Colors.green,
     canvasColor: Colors.black,

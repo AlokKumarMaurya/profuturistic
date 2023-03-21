@@ -16,6 +16,7 @@ abstract class Routes {
   static const COURSE_STUDY_VIEW =
       _Paths.COURSES + _Paths.COURSE_DETAIL_VIEW + _Paths.COURSE_STUDY_VIEW;
   static const POPULAR_COURSE_DETAIL = _Paths.POPULAR_COURSE_DETAIL;
+  static const PURCHASED_POPULAR_COURSE = _Paths.PURCHASED_POPULAR_COURSE;
 }
 
 abstract class _Paths {
@@ -32,4 +33,5 @@ abstract class _Paths {
   static const COURSE_DETAIL_VIEW = '/course-detail-view';
   static const COURSE_STUDY_VIEW = '/course-study-view';
   static const POPULAR_COURSE_DETAIL = '/popular-course-detail';
+  static const PURCHASED_POPULAR_COURSE = '/purchased-popular-course';
 }
