@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:profuturistic/app/data/helperWidget/appHelperWidget.dart';
 
@@ -16,17 +15,18 @@ class SignUpView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        _clearController();
+        controller.clearData();
         Get.offNamed(Routes.LOGIN);
         return true;
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
+          resizeToAvoidBottomInset: true,
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
-                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 child: SizedBox(
                   height: Get.height,
                   child: Column(
@@ -36,35 +36,27 @@ class SignUpView extends GetView<AuthController> {
                       AppHelperWidget().appTextField(
                           onChanged: (val) => null,
                           textAlign: TextAlign.left,
-                          borderColor: Theme
-                              .of(context)
-                              .primaryColor,
+                          borderColor: Theme.of(context).primaryColor,
                           borderWidth: 2,
                           isDense: true,
                           isFilled: false,
-                          lableTextColor: Theme
-                              .of(context)
-                              .canvasColor,
+                          lableTextColor: Theme.of(context).canvasColor,
                           borderRadius: AppDimensions().h15,
                           controller: controller.authNameTextEditingController,
                           lableText: "Name",
                           hintText: "Name"),
-
                       AppDimensions().vSpace20(),
-                     Obx(()=> AppHelperWidget().appTextField(
-                          onChanged: (val) => controller.validateEmail(val: val),
+                      Obx(() => AppHelperWidget().appTextField(
+                          onChanged: (val) =>
+                              controller.validateEmail(val: val),
                           errorText: "Enter a valid email",
                           isInputValid: controller.isEmailValid.value,
                           textAlign: TextAlign.left,
-                          borderColor: Theme
-                              .of(context)
-                              .primaryColor,
+                          borderColor: Theme.of(context).primaryColor,
                           borderWidth: 2,
                           isDense: true,
                           isFilled: false,
-                          lableTextColor: Theme
-                              .of(context)
-                              .canvasColor,
+                          lableTextColor: Theme.of(context).canvasColor,
                           borderRadius: AppDimensions().h15,
                           controller: controller.authEmailTextEditingController,
                           lableText: "Email",
@@ -75,90 +67,74 @@ class SignUpView extends GetView<AuthController> {
                           isObscure: true,
                           suffix: Icon(
                             Icons.lock,
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                             size: 30,
                           ),
                           textAlign: TextAlign.left,
-                          borderColor: Theme
-                              .of(context)
-                              .primaryColor,
+                          borderColor: Theme.of(context).primaryColor,
                           borderWidth: 2,
                           isDense: true,
                           isFilled: false,
-                          lableTextColor: Theme
-                              .of(context)
-                              .canvasColor,
+                          lableTextColor: Theme.of(context).canvasColor,
                           borderRadius: AppDimensions().h15,
-                          controller: controller.authPasswordTextEditingController,
+                          controller:
+                              controller.authPasswordTextEditingController,
                           lableText: "Password",
                           hintText: "******"),
                       AppDimensions().vSpace20(),
-                      AppHelperWidget().appButton(
-                          buttonRadius: AppDimensions().h30,
-                          text: "SignUp",
-                          textColor: Theme
-                              .of(context)
-                              .cardColor,
-                          buttonWidth: Get.width / 1.2,
-                          buttonHeight: 60,
-                          onClick: () =>
-                              AppHelperFunction()
-                                  .showErrorSnackBar(message: "No functionality yet")),
+                      Obx(
+                        () => controller.isDataLoading.value
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : AppHelperWidget().appButton(
+                                buttonRadius: AppDimensions().h30,
+                                text: "SignUp",
+                                textColor: Theme.of(context).cardColor,
+                                buttonWidth: Get.width / 1.2,
+                                buttonHeight: 60,
+                                onClick: () => controller.signUp()),
+                      ),
                       AppDimensions().vSpace10(),
                       AppHelperWidget().appButton(
                           borderWidth: 2,
-                          buttonBorderColor: Theme
-                              .of(context)
-                              .canvasColor,
+                          buttonBorderColor: Theme.of(context).canvasColor,
                           leading: Image.asset(AppConstants.googleImage),
-                          buttonBgColor: Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
+                          buttonBgColor:
+                              Theme.of(context).scaffoldBackgroundColor,
                           buttonRadius: AppDimensions().h30,
                           text: "Google    ",
-                          textColor: Theme
-                              .of(context)
-                              .canvasColor,
+                          textColor: Theme.of(context).canvasColor,
                           buttonWidth: Get.width / 1.2,
                           buttonHeight: 45,
-                          onClick: () =>
-                              AppHelperFunction()
-                                  .showErrorSnackBar(message: "No functionality yet")),
+                          onClick: () => AppHelperFunction().showErrorSnackBar(
+                              message: "No functionality yet")),
                       AppDimensions().vSpace10(),
                       AppHelperWidget().appButton(
                           borderWidth: 2,
                           leading: Icon(
                             Icons.facebook,
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                           ),
-                          buttonBgColor: Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
+                          buttonBgColor:
+                              Theme.of(context).scaffoldBackgroundColor,
                           buttonRadius: AppDimensions().h30,
                           text: "Facebook",
-                          textColor: Theme
-                              .of(context)
-                              .primaryColor,
+                          textColor: Theme.of(context).primaryColor,
                           buttonWidth: Get.width / 1.2,
                           buttonHeight: 45,
-                          onClick: () =>
-                              AppHelperFunction()
-                                  .showErrorSnackBar(message: "No functionality yet")),
+                          onClick: () => AppHelperFunction().showErrorSnackBar(
+                              message: "No functionality yet")),
                       AppDimensions().vSpace20(),
                       InkWell(
-                        onTap: (){
-                       _clearController();
-                          Get.offNamed(Routes.LOGIN);},
+                        onTap: () {
+                          controller.clearData();
+                          Get.offNamed(Routes.LOGIN);
+                        },
                         child: AppHelperWidget().appText(
                             text: "Already Registered?\nLog in here.",
                             fontSize: AppDimensions().h15,
-                            color: Theme
-                                .of(context)
-                                .canvasColor,
+                            color: Theme.of(context).canvasColor,
                             fontWeight: FontWeight.w400),
                       ),
                       AppDimensions().vSpace30(),
@@ -168,14 +144,9 @@ class SignUpView extends GetView<AuthController> {
                 ),
               ),
             ),
-          )
-      ),
+          )),
     );
   }
 
-  void _clearController() {
-    controller.authNameTextEditingController.clear();
-    controller.authEmailTextEditingController.clear();
-    controller.authPasswordTextEditingController.clear();
-  }
+
 }

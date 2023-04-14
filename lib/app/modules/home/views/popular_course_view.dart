@@ -6,6 +6,7 @@ import 'package:profuturistic/app/data/helperWidget/appHelperWidget.dart';
 import 'package:profuturistic/app/modules/home/controllers/home_controller.dart';
 
 import '../../../routes/app_pages.dart';
+import '../controllers/popularCourseController.dart';
 
 class PopularCourseView extends GetView<HomeController> {
   const PopularCourseView({Key? key}) : super(key: key);
@@ -31,8 +32,13 @@ class PopularCourseView extends GetView<HomeController> {
                 buttonRadius: 10,
                 fontWeight: FontWeight.w400,
                 textSize: 18,
-                onClick: () => AppHelperFunction()
-                    .showGoodSnackBar(message: "Tap working fine"))
+                onClick: () => {
+                  Get.find<PopularCourseController>().getAllPopularCourse().then((val){
+                    if(val !=" "){
+                      Get.toNamed(Routes.ALL_POPULAR_COURSE);
+                    }
+                })
+                })
           ],
         ),
         AppDimensions().vSpace15(),
@@ -65,40 +71,46 @@ class PopularCourseView extends GetView<HomeController> {
         ],
       );
 
-  Widget _gridView() => GridView.builder(
-      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-      shrinkWrap: true,
-      physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
-      scrollDirection: Axis.vertical,
-      itemCount: 13,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: 0.825,
-          crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 20),
-      itemBuilder: (context, index) {
-        return InkWell(
-          onTap: ()=>Get.toNamed(Routes.POPULAR_COURSE_DETAIL,preventDuplicates: true),
-          child: Column(
-            children: [
-              Container(
-                height: 100,
-                width: double.infinity,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: AppHelperWidget().imageBuilder(
-                    imagePath: "https://picsum.photos/500/500",
-                    isAssetImage: false,
+  Widget _gridView() => GetBuilder<PopularCourseController>(
+    init: PopularCourseController(),
+    builder: (controller) {
+      return controller.popularCourse!=null?GridView.builder(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          shrinkWrap: true,
+          physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
+          scrollDirection: Axis.vertical,
+          itemCount: controller.popularCourse!.batchCategory.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 0.825,
+              crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 20),
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: ()=>Get.toNamed(Routes.POPULAR_COURSE_DETAIL,preventDuplicates: true),
+              child: Column(
+                children: [
+                  Container(
                     height: 100,
                     width: double.infinity,
-                    borderRadius: 10),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    child: AppHelperWidget().imageBuilder(
+                        imagePath:controller.popularCourse!.batchCategory[index].imageUrl,
+                        isAssetImage: false,
+                        height: 100,
+                        boxShape: BoxShape.rectangle,
+                        width: double.infinity,
+                        borderRadius: 10),
+                  ),
+                  AppDimensions().vSpace5(),
+                  AppHelperWidget().appText(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 12,
+                      text: controller.popularCourse!.batchCategory[index].name,
+                      color: Theme.of(context).canvasColor)
+                ],
               ),
-              AppDimensions().vSpace5(),
-              AppHelperWidget().appText(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16,
-                  text: "Title $index",
-                  color: Theme.of(context).canvasColor)
-            ],
-          ),
-        );
-      });
+            );
+          }):const Center(child: CircularProgressIndicator(),);
+    }
+  );
 }

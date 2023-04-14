@@ -272,7 +272,7 @@ class AppHelperWidget {
                       shape: boxShape,
                       image: const DecorationImage(
                           fit: BoxFit.fill,
-                          image: AssetImage(AppConstants.appLogoImage))),
+                          image: NetworkImage("https://picsum.photos/500/500"))),
                 ),
               ),
             );

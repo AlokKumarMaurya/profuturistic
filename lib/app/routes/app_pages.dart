@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../data/appStorage/sharedPrefrences.dart';
 import '../modules/VideoLecture/bindings/video_lecture_binding.dart';
 import '../modules/VideoLecture/views/video_lecture_view.dart';
 import '../modules/askDoubt/bindings/ask_doubt_binding.dart';
@@ -16,6 +17,7 @@ import '../modules/courses/bindings/courses_binding.dart';
 import '../modules/courses/views/courses_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/home/views/popular_course_view_all_view.dart';
 import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
 import '../modules/popularCourseDetail/bindings/popular_course_detail_binding.dart';
@@ -30,7 +32,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static  String INITIAL = AppPreference().getLoginSate()?Routes.HOME:Routes.LOGIN;
   static const login = Routes.LOGIN;
   static const signUp = Routes.SIGNUP;
 
@@ -92,6 +94,11 @@ class AppPages {
     GetPage(
       name: _Paths.POPULAR_COURSE_DETAIL,
       page: () => const PopularCourseDetailView(),
+      binding: PopularCourseDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.ALL_POPULAR_COURSE,
+      page: () => const PopularCourseViewAllView(),
       binding: PopularCourseDetailBinding(),
     ),
     GetPage(

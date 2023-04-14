@@ -63,16 +63,18 @@ class LoginView extends GetView<AuthController> {
                   lableText: "Password",
                   hintText: "******"),
               AppDimensions().vSpace20(),
-              AppHelperWidget().appButton(
-                  buttonRadius: AppDimensions().h30,
-                  text: "Sign IN",
-                  letterSpacing: 1.2,
-                  textColor: Theme
-                      .of(context)
-                      .cardColor,
-                  buttonWidth: Get.width / 1.2,
-                  buttonHeight: 60,
-                  onClick: () =>controller.login()),
+            Obx(()=>controller.isDataLoading.value?const Center(child: CircularProgressIndicator(),):  AppHelperWidget().appButton(
+                buttonRadius: AppDimensions().h30,
+                text: "Sign IN",
+                letterSpacing: 1.2,
+                textColor: Theme
+                    .of(context)
+                    .cardColor,
+                buttonWidth: Get.width / 1.2,
+                buttonHeight: 60,
+                onClick: () {
+                  AppHelperFunction().hideKeyBoard();
+                  controller.login();})),
               AppDimensions().vSpace10(),
               AppHelperWidget().appButton(
                   borderWidth: 2,

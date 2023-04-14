@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:profuturistic/app/data/helperWidget/appDimensions.dart';
 
@@ -48,4 +49,6 @@ class AppHelperFunction {
       maxWidth: Get.width/1.5,
     ));
   }
+
+  void hideKeyBoard()=>SystemChannels.textInput.invokeMethod('TextInput.hide');
 }
