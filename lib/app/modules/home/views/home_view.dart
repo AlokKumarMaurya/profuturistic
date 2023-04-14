@@ -15,14 +15,25 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: const BottomNavigationBarView(),
-        body: PageView(
-          controller: controller.homePageController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            DashboardView(),
-            CoursesView(),
-            NotificationView(),
-            ProfileView()
+        body: Stack(
+          children: [
+            PageView(
+              controller: controller.homePageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const [
+                DashboardView(),
+                CoursesView(),
+                NotificationView(),
+                ProfileView()
+              ],
+            ),
+           Obx(()=>controller.isDataLoading.value? Container(
+             alignment: Alignment.center,
+             height: Get.height,
+             width: Get.width,
+             color: Theme.of(context).disabledColor.withOpacity(0.5),
+             child: const CircularProgressIndicator(),
+           ):const SizedBox(),)
           ],
         ));
   }

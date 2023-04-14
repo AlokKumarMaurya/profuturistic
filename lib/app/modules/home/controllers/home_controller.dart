@@ -24,6 +24,7 @@ class HomeController extends GetxController {
 
   int get selectedTab => _selectedTab;
   List<String> tabList = ["All", "Olympiad", "Banking", "Current - Affairs"];
+RxBool isDataLoading=false.obs;
 
   AllTabCourseCourseModal? allTabCourseCourseModal;
   AllTabCourseCourseModal? courseTabList;

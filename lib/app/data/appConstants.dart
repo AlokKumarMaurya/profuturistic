@@ -24,6 +24,7 @@ static const allPopularCourse="${baseUrl}student_api/course_all";
 static const courseTabList="${baseUrl}student_api/batch_courses";
 static const allTabCourse="${baseUrl}student_api/batch_courses_all";
 static const getCourseById="${baseUrl}student_api/get_batch_courses/";
+static const getPopularCourseDetailById="${baseUrl}student_api/get_courses_details/";
 
 
 }

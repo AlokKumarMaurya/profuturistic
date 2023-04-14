@@ -6,6 +6,7 @@ import 'package:profuturistic/app/data/helperWidget/appHelperWidget.dart';
 import 'package:profuturistic/app/modules/home/controllers/home_controller.dart';
 
 import '../../../routes/app_pages.dart';
+import '../../popularCourseDetail/controllers/popular_course_detail_controller.dart';
 import '../controllers/popularCourseController.dart';
 
 class PopularCourseView extends GetView<HomeController> {
@@ -34,7 +35,7 @@ class PopularCourseView extends GetView<HomeController> {
                 textSize: 18,
                 onClick: () => {
                   Get.find<PopularCourseController>().getAllPopularCourse().then((val){
-                    if(val !=" "){
+                    if(val !=""){
                       Get.toNamed(Routes.ALL_POPULAR_COURSE);
                     }
                 })
@@ -85,7 +86,7 @@ class PopularCourseView extends GetView<HomeController> {
               crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 20),
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: ()=>Get.toNamed(Routes.POPULAR_COURSE_DETAIL,preventDuplicates: true),
+              onTap: ()=>PopularCourseDetailController().getCourseById(courseId:controller.popularCourse!.batchCategory[index].id ),//Get.toNamed(Routes.POPULAR_COURSE_DETAIL,preventDuplicates: true),
               child: Column(
                 children: [
                   Container(

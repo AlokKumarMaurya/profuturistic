@@ -18,35 +18,40 @@ class PopularCourseDetailView extends GetView<PopularCourseDetailController> {
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  AppHelperWidget().imageBuilder(
-                      imagePath: "https://picsum.photos/500/500",
-                      isAssetImage: false,
-                      height: 150,
-                      width: Get.width,
-                      borderRadius: 0),
-                  AppDimensions().vSpace10(),
-                  _titleBuilder(),
-                  AppDimensions().vSpace30(),
-                  _expansionTileBuilder(),
-                  AppDimensions().vSpace30(),
-                  AppHelperWidget().appButton(
-                      borderWidth: 2.5,
-                      buttonBgColor: Theme.of(Get.context!).primaryColor,
-                      buttonBorderColor: Theme.of(Get.context!).primaryColor,
-                      text: "Enroll Now",
-                      textSize: 18,
-                      fontWeight: FontWeight.normal,
-                      buttonWidth: Get.width / 1.5,
-                      buttonHeight: 40,
-                      buttonPadding: 0.5,
-                      buttonRadius: 0,
-                      textColor: Theme.of(Get.context!).scaffoldBackgroundColor,
-                      onClick: () => Get.toNamed(Routes.PURCHASED_POPULAR_COURSE)),
-                  AppDimensions().vSpace30(),
-                ],
-              ),
+              child:controller.popularCourseDetailModal !=null?GetBuilder<PopularCourseDetailController>(
+                init: PopularCourseDetailController(),
+                builder: (controller) {
+                  return Column(
+                    children: [
+                      AppHelperWidget().imageBuilder(
+                          imagePath: controller.popularCourseDetailModal!.batches[0].batchImageUrl,
+                          isAssetImage: false,
+                          height: 150,
+                          width: Get.width,
+                          borderRadius: 0),
+                      AppDimensions().vSpace10(),
+                      _titleBuilder(),
+                      AppDimensions().vSpace30(),
+                      _expansionTileBuilder(),
+                      AppDimensions().vSpace30(),
+                      AppHelperWidget().appButton(
+                          borderWidth: 2.5,
+                          buttonBgColor: Theme.of(Get.context!).primaryColor,
+                          buttonBorderColor: Theme.of(Get.context!).primaryColor,
+                          text: "Enroll Now",
+                          textSize: 18,
+                          fontWeight: FontWeight.normal,
+                          buttonWidth: Get.width / 1.5,
+                          buttonHeight: 40,
+                          buttonPadding: 0.5,
+                          buttonRadius: 0,
+                          textColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+                          onClick: () => Get.toNamed(Routes.PURCHASED_POPULAR_COURSE)),
+                      AppDimensions().vSpace30(),
+                    ],
+                  );
+                },
+              ):const SizedBox() ,
             ),
           )),
     );
@@ -55,29 +60,32 @@ class PopularCourseDetailView extends GetView<PopularCourseDetailController> {
   Widget _titleBuilder() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AppHelperWidget().appText(
-                  text: "Current Affairs",
-                  fontSize: 22,
-                  color: Theme.of(Get.context!).canvasColor),
-              AppDimensions().vSpace5(),
-              Row(
-                children: [
-                  AppHelperWidget().appText(
-                      text: "INR 7999/-",
-                      fontSize: 16,
-                      color: Theme.of(Get.context!).canvasColor),
-                  AppDimensions().hSpace5(),
-                  AppHelperWidget().appText(
-                      text: "2 Weeks, 5 Days",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Theme.of(Get.context!).canvasColor)
-                ],
-              ),
-            ],
+          SizedBox(
+            width: Get.width / 1.6,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppHelperWidget().appText(
+                    text: controller.popularCourseDetailModal!.batches[0].batchName,
+                    fontSize: 22,
+                    color: Theme.of(Get.context!).canvasColor),
+                AppDimensions().vSpace5(),
+                Row(
+                  children: [
+                    AppHelperWidget().appText(
+                        text: "INR ${controller.popularCourseDetailModal!.batches[0].batchOfferPrice}/-",
+                        fontSize: 16,
+                        color: Theme.of(Get.context!).canvasColor),
+                    AppDimensions().hSpace5(),
+                    AppHelperWidget().appText(
+                        text: "-- Weeks, -- Days",
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(Get.context!).canvasColor)
+                  ],
+                ),
+              ],
+            ),
           ),
           AppHelperWidget().appButton(
               borderWidth: 2.5,
@@ -96,7 +104,7 @@ class PopularCourseDetailView extends GetView<PopularCourseDetailController> {
       );
 
   Widget _expansionTileBuilder() => ListView.builder(
-        itemCount: 10,
+        itemCount: controller.popularCourseDetailModal!.batches[0].faq.length,
         shrinkWrap: true,
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
@@ -121,10 +129,9 @@ class PopularCourseDetailView extends GetView<PopularCourseDetailController> {
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                title: AppHelperWidget().appText(text: "Course Overview"),
-                children: const [
-                  Text(
-                      'Why do we use it? \nIt is a long established fact that a reader will bedistracted by the readable content of a page whenlooking at its layout. The point of using Lorem Ipsumis that it has a more-or-less normal.......................'),
+                title: AppHelperWidget().appText(text: controller.popularCourseDetailModal!.batches[0].faq[index].question),
+                children:  [
+                  Text(controller.popularCourseDetailModal!.batches[0].faq[index].answer),
                 ]),
           );
         },
