@@ -21,7 +21,7 @@ class CourseDetailViewView extends GetView<CourseDetailViewController> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 AppHelperWidget().appText(
-                    text: "${controller.title} - Session 1",
+                    text: "{controller.title} - Session 1",
                     color: Theme.of(context).canvasColor,
                     letterSpacing: 1.2),
                 AppDimensions().vSpace15(),
@@ -66,7 +66,12 @@ class CourseDetailViewView extends GetView<CourseDetailViewController> {
                           itemCount: 8,
                           physics: const AlwaysScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            return _tile();
+                            return GetBuilder<CourseDetailViewController>(
+                              init: CourseDetailViewController(),
+                              builder: (courseDetailViewController) {
+                                return _tile();
+                              }
+                            );
                           },
                         ))
                       ],

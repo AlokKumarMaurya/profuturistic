@@ -1,6 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 
 import '../appConstants.dart';
+import '../responseModal/authModal/loginModal.dart';
 
 class AppPreference {
   final box = GetStorage();
@@ -12,5 +13,13 @@ class AppPreference {
   bool getLoginSate() => box.read(AppConstants.saveLoginKey) ?? false;
 
 
-  deleteStorage()=>box.erase();
+  void saveLoginData({required LoginResponseModal loginData}) {
+    box.write(AppConstants.saveLoginData, loginData);
+  }
+
+  LoginResponseModal getLoginData() {
+    return box.read(AppConstants.saveLoginData);
+  }
+
+  deleteStorage() => box.erase();
 }

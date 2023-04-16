@@ -87,6 +87,7 @@ class AuthController extends GetxController {
         LoginResponseModal val=LoginResponseModal.fromJson(  res);
           AppHelperFunction().showGoodSnackBar(message: val.message);
           clearData();
+        AppPreference().saveLoginData(loginData: val);
           Get.offAllNamed(Routes.HOME);
         AppPreference().storeLoginState(isLoggedIn: true);
       }

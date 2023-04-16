@@ -5,6 +5,8 @@ import 'package:profuturistic/app/data/helperWidget/appDimensions.dart';
 import 'package:profuturistic/app/data/helperWidget/appHelperWidget.dart';
 import 'package:profuturistic/app/modules/home/controllers/home_controller.dart';
 
+import '../../modules/courses/controllers/courses_controller.dart';
+
 class BottomNavigationBarView extends GetView<HomeController> {
   const BottomNavigationBarView({Key? key}) : super(key: key);
 
@@ -61,45 +63,58 @@ class BottomNavigationBarView extends GetView<HomeController> {
               ),
             )),
             Expanded(
-                child: InkWell(
-              onTap: () => controller.handleBottomItemTap(index: 1),
+                child: GetBuilder<CoursesController>(
+                  init: CoursesController(),
+                  builder: (courseController) {
+                    return InkWell(
+              onTap: () {
+                controller.isDataLoading.value=true;
+                courseController.getEnrolledCourse().then((value){
+                  if(value !=null){
+                    controller.handleBottomItemTap(index: 1);
+                  }
+                  controller.isDataLoading.value=false;
+                });
+              },//controller.handleBottomItemTap(index: 1),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: controller.homePageController.page == 1.0
-                              ? Theme.of(context).primaryColor
-                              : Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(30)),
-                      height: 5,
-                    ),
-                    AppDimensions().vSpace5(),
-                    AppHelperWidget().customIcon(
-                        icon: Icon(
-                          Icons.chrome_reader_mode,
-                          color: controller.homePageController.page == 1.0
-                              ? Theme.of(context).primaryColor
-                              : Theme.of(context).errorColor,
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              color: controller.homePageController.page == 1.0
+                                  ? Theme.of(context).primaryColor
+                                  : Theme.of(context).scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(30)),
+                          height: 5,
                         ),
-                        padding: 8,
-                        bgFillColor: Colors.transparent,
-                        height: 20,
-                        width: 45),
-                    AppDimensions().vSpace15(),
-                    AppHelperWidget().appText(
-                      text: "Courses",
-                      color: Theme.of(context).canvasColor,
-                      fontWeight: FontWeight.normal,
-                      fontSize: AppDimensions().h10,
-                    )
-                  ],
-                ),
+                        AppDimensions().vSpace5(),
+                        AppHelperWidget().customIcon(
+                            icon: Icon(
+                              Icons.chrome_reader_mode,
+                              color: controller.homePageController.page == 1.0
+                                  ? Theme.of(context).primaryColor
+                                  : Theme.of(context).errorColor,
+                            ),
+                            padding: 8,
+                            bgFillColor: Colors.transparent,
+                            height: 20,
+                            width: 45),
+                        AppDimensions().vSpace15(),
+                        AppHelperWidget().appText(
+                          text: "Courses",
+                          color: Theme.of(context).canvasColor,
+                          fontWeight: FontWeight.normal,
+                          fontSize: AppDimensions().h10,
+                        )
+                      ],
+                    ),
               ),
-            )),
+            );
+                  }
+                )),
             Expanded(
                 child: InkWell(
               onTap: () => controller.handleBottomItemTap(index: 2),

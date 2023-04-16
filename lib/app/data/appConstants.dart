@@ -3,6 +3,7 @@ class AppConstants{
 
   //shared Preferences key
 static const String saveLoginKey="LOGIN";
+static const String saveLoginData="LOGIN_DATA";
 
 
 //png assets
@@ -25,6 +26,8 @@ static const courseTabList="${baseUrl}student_api/batch_courses";
 static const allTabCourse="${baseUrl}student_api/batch_courses_all";
 static const getCourseById="${baseUrl}student_api/get_batch_courses/";
 static const getPopularCourseDetailById="${baseUrl}student_api/get_courses_details/";
+static const getEnrolledCourse="${baseUrl}student_api/enrolled_course/";
+static const getEnrolledCourseDetail="${baseUrl}student_api/get_syllabus/";
 
 
 }

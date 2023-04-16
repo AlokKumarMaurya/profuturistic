@@ -8,6 +8,8 @@ import '../provider/popularCourseDetailViewProvide.dart';
 
 class PopularCourseDetailController extends GetxController {
 
+  RxBool isDataLoading=false.obs;
+
   PopularCourseDetailModal? popularCourseDetailModal;
 
   void getCourseById({required String courseId})async{

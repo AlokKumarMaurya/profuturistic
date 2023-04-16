@@ -1,10 +1,26 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 
+import '../../../data/responseModal/courses/enrolledCoursesModal.dart';
+import '../providers/enrolledCourseProviders.dart';
+
 class CoursesController extends GetxController {
-  List<Map<String, String>> coursesList = List.generate(
-      5,
-      (index) => {
-            "courseName": "Course $index",
-            "image": "https://picsum.photos/500/500"
-          });
+  EnrolledCourseModal? enrolledCourseModal;
+
+
+
+  Future getEnrolledCourse()async{
+    enrolledCourseModal=null;
+    await EnrolledCoursesProvider().getPopularCourse().then((value) {
+      if(value !=null){
+        enrolledCourseModal=EnrolledCourseModal.fromJson(jsonDecode(value));
+      }else{
+        enrolledCourseModal=EnrolledCourseModal(status: true, batches: []);
+      }
+      update();
+    });
+    return true;
+  }
+
 }

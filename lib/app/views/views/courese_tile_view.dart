@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:profuturistic/app/data/appConstants.dart';
 import 'package:profuturistic/app/data/helperWidget/appDimensions.dart';
 import 'package:profuturistic/app/data/helperWidget/appHelperWidget.dart';
 

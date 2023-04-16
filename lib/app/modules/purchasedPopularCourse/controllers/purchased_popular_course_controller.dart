@@ -1,23 +1,28 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:profuturistic/app/data/responseModal/courses/enrolledCourseDetailModal.dart';
+
+import '../provider/purchasedPopularCourseProvider.dart';
 
 class PurchasedPopularCourseController extends GetxController {
-  //TODO: Implement PurchasedPopularCourseController
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  EnrolledCourseDetailModal? enrolledCourseDetailModal;
+
+
+
+
+  Future getEnrolledCourseDetail({required String id})async{
+    enrolledCourseDetailModal=null;
+    await PurchasedPopularCourseProvider().getEnrolledCourseDetail(id: id).then((value) {
+      if(value !=null){
+        enrolledCourseDetailModal=EnrolledCourseDetailModal.fromJson(jsonDecode(value));
+      }else{
+        enrolledCourseDetailModal=EnrolledCourseDetailModal(status: true,  batchData: []);
+      }
+      update();
+    });
+    return true;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

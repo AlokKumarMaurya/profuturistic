@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../../../data/responseModal/homeScreenModlas/allCoursesForTabModal.dart';
+import '../../courses/controllers/courses_controller.dart';
 import '../providers/homeProvider.dart';
 
 class HomeController extends GetxController {
@@ -30,11 +30,11 @@ RxBool isDataLoading=false.obs;
   AllTabCourseCourseModal? courseTabList;
 
   void handleBottomItemTap({required int index}) {
-    _homePageController
-        .animateToPage(index,
-            duration: const Duration(microseconds: 1),
-            curve: Curves.bounceInOut)
-        .then((value) => update());
+      _homePageController
+          .animateToPage(index,
+          duration: const Duration(microseconds: 1),
+          curve: Curves.bounceInOut)
+          .then((value) => update());
   }
 
   void handleBannerScroll(int index) {
@@ -79,6 +79,8 @@ try{
     if(value !=null){
       allTabCourseCourseModal=AllTabCourseCourseModal.fromJson(value);
       update();
+    }else{
+      allTabCourseCourseModal=AllTabCourseCourseModal(status: true, batches: []);
     }
   } );
 }catch(e){
@@ -94,6 +96,8 @@ try{
       courseTabList=AllTabCourseCourseModal.fromJson(value);
       getAllTabCourse();
       update();
+    }else{
+      courseTabList=AllTabCourseCourseModal(status: true, batches: []);
     }
   } );
 }catch(e){

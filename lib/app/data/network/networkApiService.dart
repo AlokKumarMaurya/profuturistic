@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:get/get_connect.dart';
-import 'package:profuturistic/app/data/appConstants.dart';
 import 'package:profuturistic/app/data/appHelperFunction.dart';
 
-import '../appExceptions.dart';
 import 'baseApiService.dart';
 
 class NetworkApiService extends BaseApiService {

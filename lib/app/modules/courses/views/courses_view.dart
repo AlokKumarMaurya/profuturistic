@@ -5,6 +5,7 @@ import 'package:profuturistic/app/data/helperWidget/appHelperWidget.dart';
 import 'package:profuturistic/app/routes/app_pages.dart';
 
 import '../../../views/views/courese_tile_view.dart';
+import '../CourseDetailView/controllers/course_detail_view_controller.dart';
 import '../controllers/courses_controller.dart';
 
 class CoursesView extends GetView<CoursesController> {
@@ -12,7 +13,6 @@ class CoursesView extends GetView<CoursesController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => CoursesController());
     return Scaffold(
         appBar: AppHelperWidget().appBar(),
         body: Padding(
@@ -27,23 +27,72 @@ class CoursesView extends GetView<CoursesController> {
                 fontSize: 22,
               ),
               Expanded(
-                  child: ListView.builder(
-                itemCount: controller.coursesList.length,
-                shrinkWrap: true,
-                physics: const AlwaysScrollableScrollPhysics(),
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                itemBuilder: (context, index) {
-                  return CoursesTileView(
-                    onTap: () =>
-                        Get.toNamed(Routes.COURSE_DETAIL_VIEW, arguments: {
-                      "title":controller.coursesList[index]["courseName"]!,
-                    }),
-                    courseName: controller.coursesList[index]["courseName"]!,
-                    courseImage: controller.coursesList[index]["image"]!,
-                  );
-                },
-              ))
+                  child: GetBuilder<CoursesController>(
+                      init: CoursesController(),
+                      builder: (courseController) {
+                        return courseController.enrolledCourseModal != null
+                            ? ListView.builder(
+                                itemCount: courseController
+                                    .enrolledCourseModal!.batches.length,
+                                shrinkWrap: true,
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                keyboardDismissBehavior:
+                                    ScrollViewKeyboardDismissBehavior.onDrag,
+                                itemBuilder: (context, index) {
+                                  return GetBuilder<CourseDetailViewController>(
+                                      init: CourseDetailViewController(),
+                                      builder: (courseDetailViewController) {
+                                        return CoursesTileView(
+                                          onTap: () {
+
+                                            Get.toNamed(
+                                                Routes.COURSE_DETAIL_VIEW,
+                                                arguments: {
+                                                  "title": courseController
+                                                      .enrolledCourseModal!
+                                                      .batches[index]
+                                                      .batchName,
+                                                });
+
+
+
+
+                                         /*
+                                            courseDetailViewController
+                                                .getEnrolledCourseDetail(
+                                                    id: courseController
+                                                        .enrolledCourseModal!
+                                                        .batches[index]
+                                                        .batchId)
+                                                .then((value) {
+                                              if (value != null) {
+                                                Get.toNamed(
+                                                    Routes.COURSE_DETAIL_VIEW,
+                                                    arguments: {
+                                                      "title": courseController
+                                                          .enrolledCourseModal!
+                                                          .batches[index]
+                                                          .batchName,
+                                                    });
+                                              }
+                                            });*/
+                                          },
+                                          courseName: courseController
+                                              .enrolledCourseModal!
+                                              .batches[index]
+                                              .batchName,
+                                          courseImage: courseController
+                                              .enrolledCourseModal!
+                                              .batches[index]
+                                              .batchImageUrl,
+                                        );
+                                      });
+                                },
+                              )
+                            : const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                      }))
             ],
           ),
         ));
