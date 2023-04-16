@@ -12,14 +12,18 @@ class CoursesController extends GetxController {
 
   Future getEnrolledCourse()async{
     enrolledCourseModal=null;
-    await EnrolledCoursesProvider().getPopularCourse().then((value) {
-      if(value !=null){
-        enrolledCourseModal=EnrolledCourseModal.fromJson(jsonDecode(value));
-      }else{
-        enrolledCourseModal=EnrolledCourseModal(status: true, batches: []);
-      }
-      update();
-    });
+try{
+  await EnrolledCoursesProvider().getPopularCourse().then((value) {
+    if(value !=null){
+      enrolledCourseModal=EnrolledCourseModal.fromJson(jsonDecode(value));
+    }else{
+      enrolledCourseModal=EnrolledCourseModal(status: true, batches: []);
+    }
+    update();
+  });
+}catch(e){
+  enrolledCourseModal=EnrolledCourseModal(status: true, batches: []);
+}
     return true;
   }
 
