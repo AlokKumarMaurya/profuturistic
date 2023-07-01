@@ -5,6 +5,8 @@ import '../modules/VideoLecture/bindings/video_lecture_binding.dart';
 import '../modules/VideoLecture/views/video_lecture_view.dart';
 import '../modules/askDoubt/bindings/ask_doubt_binding.dart';
 import '../modules/askDoubt/views/ask_doubt_view.dart';
+import '../modules/assignment/bindings/assignmentBindings.dart';
+import '../modules/assignment/views/assignmentView.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/auth/views/login_view.dart';
@@ -32,7 +34,8 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static  String INITIAL = AppPreference().getLoginSate()?Routes.HOME:Routes.LOGIN;
+  static String INITIAL =
+      AppPreference().getLoginSate() ? Routes.HOME : Routes.LOGIN;
   static const login = Routes.LOGIN;
   static const signUp = Routes.SIGNUP;
 
@@ -106,5 +109,9 @@ class AppPages {
       page: () => const PurchasedPopularCourseView(),
       binding: PurchasedPopularCourseBinding(),
     ),
+    GetPage(
+        name: _Paths.ASSIGNMENT,
+        page: () => const AssignmentView(),
+        binding: AssignmentBinding())
   ];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:profuturistic/app/data/appHelperFunction.dart';
 
 import '../../../data/helperWidget/appDimensions.dart';
 import '../../../data/helperWidget/appHelperWidget.dart';
@@ -26,10 +27,13 @@ class TabFilterView extends GetView<HomeController> {
                         itemCount: homeController.courseTabList!.batches.length,
                         itemBuilder: (context, index) {
                           return InkWell(
-                            onTap: () => homeController.handleTabListTap(
-                                index: index,
-                                courseId: homeController
-                                    .courseTabList!.batches[index].catId),
+                            onTap: (){
+                              homeController.handleTabListTap(
+                                  index: index,
+                                  courseId: homeController
+                                      .courseTabList!.batches[index].catId);
+                              AppHelperFunction().appPrint(val:"0000000000000000000000000000000");
+                            },
                             child: Container(
                               alignment: Alignment.center,
                               padding: EdgeInsets.all(AppDimensions().h10),
@@ -79,88 +83,99 @@ class TabFilterView extends GetView<HomeController> {
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 20),
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {PopularCourseDetailController temp=Get.put(PopularCourseDetailController());
-                    temp.getCourseById(
-                        courseId: controller
-                            .allTabCourseCourseModal!.batches[index].id);
-                    },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(AppDimensions().h05),
-                    ),
-                    child: Column(
-                      children: [
-                        AppHelperWidget().imageBuilder(
-                            imagePath: controller.allTabCourseCourseModal!
-                                .batches[index].batchImageUrl,
-                            isAssetImage: false,
-                            height: 100,
-                            width: Get.width,
-                            borderRadius: 10),
-                        AppDimensions().vSpace5(),
-                        Row(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Column(
+                return /*controller
+                            .allTabCourseCourseModal!.batches[index].catId ==
+                        controller.courseTabList!
+                            .batches[controller.selectedTab].catId
+                    ? */InkWell(
+                        onTap: () {
+                          PopularCourseDetailController temp =
+                              Get.put(PopularCourseDetailController());
+                          temp.getCourseById(
+                              courseId: controller
+                                  .allTabCourseCourseModal!.batches[index].id);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(AppDimensions().h05),
+                          ),
+                          child: Column(
+                            children: [
+                              AppHelperWidget().imageBuilder(
+                                  imagePath: controller.allTabCourseCourseModal!
+                                      .batches[index].batchImageUrl,
+                                  isAssetImage: false,
+                                  height: 100,
+                                  width: Get.width,
+                                  borderRadius: 10),
+                              AppDimensions().vSpace5(),
+                              Row(
+                                // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  AppHelperWidget().appText(
-                                      textHeight: 1.2,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 12,
-                                      textOverflow: TextOverflow.visible,
-                                      text: controller.allTabCourseCourseModal!
-                                          .batches[index].batchName,
-                                      color: Theme.of(context).canvasColor),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      AppHelperWidget().customIcon(
-                                          icon: Icon(
-                                            Icons.group,
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        AppHelperWidget().appText(
+                                            textHeight: 1.2,
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 12,
+                                            textOverflow: TextOverflow.visible,
+                                            text: controller
+                                                .allTabCourseCourseModal!
+                                                .batches[index]
+                                                .batchName,
                                             color:
-                                                Theme.of(context).primaryColor,
-                                          ),
-                                          padding: 0,
-                                          bgFillColor: Theme.of(context)
-                                              .scaffoldBackgroundColor,
-                                          height: 30,
-                                          width: 30),
-                                      AppHelperWidget().appText(
-                                          textHeight: 0.5,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 10,
-                                          text: controller
-                                              .allTabCourseCourseModal!
-                                              .batches[index]
-                                              .noOfStudent,
-                                          color:
-                                              Theme.of(context).disabledColor),
-                                    ],
+                                                Theme.of(context).canvasColor),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            AppHelperWidget().customIcon(
+                                                icon: Icon(
+                                                  Icons.group,
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                ),
+                                                padding: 0,
+                                                bgFillColor: Theme.of(context)
+                                                    .scaffoldBackgroundColor,
+                                                height: 30,
+                                                width: 30),
+                                            AppHelperWidget().appText(
+                                                textHeight: 0.5,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 10,
+                                                text: controller
+                                                    .allTabCourseCourseModal!
+                                                    .batches[index]
+                                                    .noOfStudent,
+                                                color: Theme.of(context)
+                                                    .disabledColor),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
+                                  AppHelperWidget().customIcon(
+                                      icon: Icon(
+                                        Icons.file_open_rounded,
+                                        size: 40,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                      padding: 0,
+                                      bgFillColor: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      height: 45,
+                                      width: 50),
                                 ],
-                              ),
-                            ),
-                            AppHelperWidget().customIcon(
-                                icon: Icon(
-                                  Icons.file_open_rounded,
-                                  size: 40,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                padding: 0,
-                                bgFillColor:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                height: 45,
-                                width: 50),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
+                              )
+                            ],
+                          ),
+                        ),
+                      );
               })
           : const Center(
               child: CircularProgressIndicator(),

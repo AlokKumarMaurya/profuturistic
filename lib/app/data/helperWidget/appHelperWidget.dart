@@ -259,8 +259,8 @@ class AppHelperWidget {
                 loadingBuilder: (context, child, loadingProgress) => Center(
                   child: loadingProgress == null
                       ? child
-                      : Text(
-                          "${(100 * (loadingProgress.cumulativeBytesLoaded / int.parse((loadingProgress.expectedTotalBytes ?? 0).toString()))).toStringAsFixed(2)} %"),
+                      : const Center(child: CircularProgressIndicator(),)/*Text(
+                          "${(100 * (loadingProgress.cumulativeBytesLoaded / int.parse((loadingProgress.expectedTotalBytes ?? 0).toString()))).toStringAsFixed(2)} %")*/,
                 ),
                 imagePath,
                 height: height,
@@ -272,7 +272,7 @@ class AppHelperWidget {
                       shape: boxShape,
                       image: const DecorationImage(
                           fit: BoxFit.fill,
-                          image: NetworkImage("https://picsum.photos/500/500"))),
+                          image: AssetImage("assets/logo.png"))),
                 ),
               ),
             );

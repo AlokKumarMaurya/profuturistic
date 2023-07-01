@@ -18,9 +18,9 @@ class PurchasedPopularCourseView
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            _titleBuilder(),
-            const LesionTileView()
+          children: const [
+            //_titleBuilder(),
+            LesionTileView()
           ],
         ),
       ),

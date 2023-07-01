@@ -15,7 +15,7 @@ class AuthController extends GetxController {
       TextEditingController();
   final TextEditingController _loginNameTextEditingController =
       TextEditingController();
-  final RxBool _isEmailValid = false.obs;
+  final RxBool _isEmailValid = true.obs;
   final RxBool _isDataLoading = false.obs;
 
   TextEditingController get authEmailTextEditingController =>
@@ -72,19 +72,19 @@ class AuthController extends GetxController {
     _isDataLoading(true);
     try {
       Map body = {
-        "email": _loginEmailTextEditingController.text,
+        "enrollment_id": _loginEmailTextEditingController.text,
         "password": _loginPasswordTextEditingController.text
       };
        if (_loginEmailTextEditingController.text.isEmpty) {
         AppHelperFunction().showErrorSnackBar(message: "Please enter email");
-      } else if (!GetUtils.isEmail(_loginEmailTextEditingController.text)) {
+      } else if (!GetUtils.isEmail(_loginEmailTextEditingController.text) && false ) {
         AppHelperFunction().showErrorSnackBar(message: "Enter a valid email");
       } else if (_loginPasswordTextEditingController.text.trim().length < 6) {
         AppHelperFunction().showErrorSnackBar(
             message: "Password must be greater than 6 digit");
       } else {
         var res = await AuthProvider().login(body: body);
-        LoginResponseModal val=LoginResponseModal.fromJson(  res);
+        LoginResponseModal val=LoginResponseModal.fromJson(res);
           AppHelperFunction().showGoodSnackBar(message: val.message);
           clearData();
         AppPreference().saveLoginData(loginData: val);

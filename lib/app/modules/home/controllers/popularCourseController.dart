@@ -19,7 +19,7 @@ try{
     }
   });
 }catch(e){
-  popularCourse=PopularCourseModal(status: true, batchCategory: []);
+  popularCourse=PopularCourseModal(status: true, batches:[]);
 }
   }
 
@@ -34,7 +34,7 @@ try{
     }
   });
 }catch(e){
-  allPopularCourse=AllTPopularCourseModal(status: true, batchCategory: []);
+  allPopularCourse=AllTPopularCourseModal(status: true, batches: []);
 }
   }
 

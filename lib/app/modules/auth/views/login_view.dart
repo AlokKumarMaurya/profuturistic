@@ -19,10 +19,10 @@ class LoginView extends GetView<AuthController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-             Obx(()=> AppHelperWidget().appTextField(
+             AppHelperWidget().appTextField(
                   onChanged: (val) => controller.validateEmail(val: val),
                   errorText: "Enter a valid email",
-                  isInputValid: controller.isEmailValid.value,
+                  isInputValid: true,//controller.isEmailValid.value,
                   textAlign: TextAlign.left,
                   borderColor: Theme
                       .of(context)
@@ -36,7 +36,7 @@ class LoginView extends GetView<AuthController> {
                   borderRadius: AppDimensions().h15,
                   controller: controller.authEmailTextEditingController,
                   lableText: "Email",
-                  hintText: "hello@gmail.com")),
+                  hintText: "hello@gmail.com"),
               AppDimensions().vSpace20(),
               AppHelperWidget().appTextField(
                   onChanged: (val) => null,

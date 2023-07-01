@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:profuturistic/app/data/appConstants.dart';
+import 'package:profuturistic/app/data/network/networkApiService.dart';
 
+import '../../../data/responseModal/bannerModal.dart';
 import '../../../data/responseModal/homeScreenModlas/allCoursesForTabModal.dart';
-import '../../courses/controllers/courses_controller.dart';
 import '../providers/homeProvider.dart';
 
 class HomeController extends GetxController {
@@ -27,8 +29,9 @@ class HomeController extends GetxController {
 RxBool isDataLoading=false.obs;
 
   AllTabCourseCourseModal? allTabCourseCourseModal;
+  AllTabCourseCourseModal? searchAllTabCourseCourseModal;
   AllTabCourseCourseModal? courseTabList;
-
+  BannerModal? bannerModal;
   void handleBottomItemTap({required int index}) {
       _homePageController
           .animateToPage(index,
@@ -45,6 +48,7 @@ RxBool isDataLoading=false.obs;
   }
 
   void handleTabListTap({required int index,required String courseId}) async{
+    print("9o8890jklsjksjdnfkjds");
     _selectedTab = index;
     getCourseById(courseId: courseId);
     update();
@@ -52,7 +56,9 @@ RxBool isDataLoading=false.obs;
 
   @override
   void onInit() {
+    getBanner();
     getTabCourseList();
+    getBanner();
     Future.delayed(const Duration(seconds: 1)).then((value) => update());
     startBannerScroll();
     // TODO: implement onInit
@@ -78,13 +84,19 @@ try{
   await HomeApiProvider().getAllTabCourseList().then((value){
     if(value !=null){
       allTabCourseCourseModal=AllTabCourseCourseModal.fromJson(value);
+      allTabCourseCourseModal!.batches=allTabCourseCourseModal!.batches.where((element) {
+        return element.catId==courseTabList!
+            .batches[_selectedTab].catId;}).toList();
+      searchAllTabCourseCourseModal=AllTabCourseCourseModal.fromJson(value);
       update();
     }else{
       allTabCourseCourseModal=AllTabCourseCourseModal(status: true, batches: []);
+      searchAllTabCourseCourseModal=AllTabCourseCourseModal(status: true, batches: []);
     }
   } );
 }catch(e){
   allTabCourseCourseModal=AllTabCourseCourseModal(status: true, batches: []);
+  searchAllTabCourseCourseModal=AllTabCourseCourseModal(status: true, batches: []);
 }
   }
 
@@ -120,6 +132,30 @@ void getCourseById({required String courseId})async{
   }
 }
 
+  void getBanner() {
+    isDataLoading.value=true;
+    bannerModal=null;
+    update();
+    NetworkApiService().getGetApiResponse(url: AppConstants.getBanner).then((value){
+      isDataLoading.value=false;
+      update();
+      if(value !=null){
+        bannerModal=BannerModal.fromJson(value);
+        update();
+      }
+    });
+  }
+
+searchCourseTabList({ required String searchText}){
+  allTabCourseCourseModal!.batches=allTabCourseCourseModal!.batches.where((element) {
+    return element.batchName.toLowerCase().contains(searchText.toLowerCase());
+  }).toList();
+  update();
+  if(searchText==""){
+    allTabCourseCourseModal=searchAllTabCourseCourseModal;
+    update();
+  }
+}
 
 
 }

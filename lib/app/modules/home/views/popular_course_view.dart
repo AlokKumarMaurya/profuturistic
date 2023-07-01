@@ -80,13 +80,16 @@ class PopularCourseView extends GetView<HomeController> {
           shrinkWrap: true,
           physics: const ScrollPhysics(parent: NeverScrollableScrollPhysics()),
           scrollDirection: Axis.vertical,
-          itemCount: controller.popularCourse!.batchCategory.length,
+          itemCount: controller.popularCourse!.batches.length >9?9: controller.popularCourse!.batches.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 0.825,
               crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 20),
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: ()=>PopularCourseDetailController().getCourseById(courseId:controller.popularCourse!.batchCategory[index].id ),//Get.toNamed(Routes.POPULAR_COURSE_DETAIL,preventDuplicates: true),
+              onTap: (){
+                var temp=Get.put(PopularCourseDetailController());
+                temp.getCourseById(courseId:controller.popularCourse!.batches[index].id );
+              },//Get.toNamed(Routes.POPULAR_COURSE_DETAIL,preventDuplicates: true),
               child: Column(
                 children: [
                   Container(
@@ -95,7 +98,7 @@ class PopularCourseView extends GetView<HomeController> {
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     child: AppHelperWidget().imageBuilder(
-                        imagePath:controller.popularCourse!.batchCategory[index].imageUrl,
+                        imagePath:controller.popularCourse!.batches[index].batchImageUrl,
                         isAssetImage: false,
                         height: 100,
                         boxShape: BoxShape.rectangle,
@@ -106,7 +109,7 @@ class PopularCourseView extends GetView<HomeController> {
                   AppHelperWidget().appText(
                       fontWeight: FontWeight.normal,
                       fontSize: 12,
-                      text: controller.popularCourse!.batchCategory[index].name,
+                      text: controller.popularCourse!.batches[index].batchName,
                       color: Theme.of(context).canvasColor)
                 ],
               ),

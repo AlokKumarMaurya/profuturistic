@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../data/helperWidget/appDimensions.dart';
 import '../../../data/helperWidget/appHelperWidget.dart';
 import '../../../routes/app_pages.dart';
+import '../../popularCourseDetail/controllers/popular_course_detail_controller.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/popularCourseController.dart';
 
@@ -31,13 +32,15 @@ class PopularCourseViewAllView extends GetView<HomeController> {
             shrinkWrap: true,
             physics: const ScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             scrollDirection: Axis.vertical,
-            itemCount: controller.allPopularCourse!.batchCategory.length,
+            itemCount: controller.allPopularCourse!.batches.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 0.825,
                 crossAxisCount: 3, crossAxisSpacing: 15, mainAxisSpacing: 20),
             itemBuilder: (context, index) {
+              PopularCourseDetailController temp =
+              Get.put(PopularCourseDetailController());
               return InkWell(
-                onTap: ()=>Get.toNamed(Routes.POPULAR_COURSE_DETAIL,preventDuplicates: true),
+                onTap: ()=>temp.getCourseById(courseId:controller.popularCourse!.batches[index].id ),//Get.toNamed(Routes.POPULAR_COURSE_DETAIL,preventDuplicates: true),
                 child: Column(
                   children: [
                     Container(
@@ -46,7 +49,7 @@ class PopularCourseViewAllView extends GetView<HomeController> {
                       decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(10)),
                       child: AppHelperWidget().imageBuilder(
-                          imagePath:controller.allPopularCourse!.batchCategory[index].imageUrl,
+                          imagePath:controller.allPopularCourse!.batches[index].batchImageUrl,
                           isAssetImage: false,
                           height: 100,
                           boxShape: BoxShape.rectangle,
@@ -57,7 +60,7 @@ class PopularCourseViewAllView extends GetView<HomeController> {
                     AppHelperWidget().appText(
                         fontWeight: FontWeight.normal,
                         fontSize: 12,
-                        text: controller.allPopularCourse!.batchCategory[index].name,
+                        text: controller.allPopularCourse!.batches[index].batchName,
                         color: Theme.of(context).canvasColor)
                   ],
                 ),

@@ -13,13 +13,13 @@ class BannerViewView extends GetView<HomeController> {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (homeController) {
-        return Stack(
+        return homeController.bannerModal!=null? Stack(
           alignment: Alignment.center,
           children: [
-            PageView.builder(
+             PageView.builder(
               onPageChanged: (int index)=>controller.handleBannerScroll(index),
               controller: controller.bannerPageController,
-                itemCount: 5,
+                itemCount: homeController.bannerModal!.data.sliderImg.length,
                 physics: const AlwaysScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
@@ -27,7 +27,7 @@ class BannerViewView extends GetView<HomeController> {
                     height: 100,
                     width: 100,
                     child: AppHelperWidget().imageBuilder(
-                        imagePath: "https://picsum.photos/500/500",
+                        imagePath: "https://profuturistic.com/uploads/site_data/${homeController.bannerModal!.data.sliderImg[index]}",
                         isAssetImage: false,
                         height: 150,
                         width: Get.width,
@@ -39,7 +39,7 @@ class BannerViewView extends GetView<HomeController> {
               height: 15,
               bottom: 10,
               left: Get.width*0.3,
-              child: ListView.builder(itemCount: 5,
+              child: ListView.builder(itemCount: homeController.bannerModal!.data.sliderImg.length,
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               physics:const NeverScrollableScrollPhysics(),
@@ -56,7 +56,7 @@ class BannerViewView extends GetView<HomeController> {
               },),
             )
           ],
-        );
+        ):const Center(child: CircularProgressIndicator(),);
       }
     );
   }

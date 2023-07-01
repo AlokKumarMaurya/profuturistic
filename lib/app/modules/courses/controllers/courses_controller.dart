@@ -6,6 +6,7 @@ import '../../../data/responseModal/courses/enrolledCoursesModal.dart';
 import '../providers/enrolledCourseProviders.dart';
 
 class CoursesController extends GetxController {
+  bool isLoading=false;
   EnrolledCourseModal? enrolledCourseModal;
 
 

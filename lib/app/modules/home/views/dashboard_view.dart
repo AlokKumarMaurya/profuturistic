@@ -47,7 +47,7 @@ class DashboardView extends GetView<HomeController> {
                       CupertinoIcons.search,
                       color: Theme.of(context).primaryColor,
                     ),
-                    onChanged: (val) => AppHelperFunction().appPrint(val: val)),
+                    onChanged: (val) => controller.searchCourseTabList(searchText:controller.searchTextEditingController.text )),
 
                const TabFilterView(),
                 const PopularCourseView(),

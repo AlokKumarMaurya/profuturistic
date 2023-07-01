@@ -37,6 +37,7 @@ class NetworkApiService extends BaseApiService {
     AppHelperFunction().appPrint(val: "This is the body $body");
     try {
       Response response =await GetConnect().post(url, body,headers: _header);
+      AppHelperFunction().appPrint(val: "This is the response $url ====> ${response.body}");
       return returnResponse(response: response);
     } on SocketException {
       AppHelperFunction().showErrorSnackBar(message: "No internet connection");

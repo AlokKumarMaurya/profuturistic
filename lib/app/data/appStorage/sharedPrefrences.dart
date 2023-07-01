@@ -18,7 +18,13 @@ class AppPreference {
   }
 
   LoginResponseModal getLoginData() {
-    return box.read(AppConstants.saveLoginData);
+    var data= box.read(AppConstants.saveLoginData);
+    if(data is LoginResponseModal){
+      return data;
+    }else{
+      return LoginResponseModal.fromJson(data);
+    }
+
   }
 
   deleteStorage() => box.erase();

@@ -2,6 +2,7 @@
 //
 //     final popularCourseDetailModal = popularCourseDetailModalFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 PopularCourseDetailModal popularCourseDetailModalFromJson(String str) => PopularCourseDetailModal.fromJson(json.decode(str));
@@ -9,17 +10,17 @@ PopularCourseDetailModal popularCourseDetailModalFromJson(String str) => Popular
 String popularCourseDetailModalToJson(PopularCourseDetailModal data) => json.encode(data.toJson());
 
 class PopularCourseDetailModal {
+  bool status;
+  List<Batch> batches;
+
   PopularCourseDetailModal({
     required this.status,
     required this.batches,
   });
 
-  bool status;
-  List<BatchPopularCourseDetail> batches;
-
   factory PopularCourseDetailModal.fromJson(Map<String, dynamic> json) => PopularCourseDetailModal(
     status: json["status"],
-    batches: List<BatchPopularCourseDetail>.from(json["batches"].map((x) => BatchPopularCourseDetail.fromJson(x))),
+    batches: List<Batch>.from(json["batches"].map((x) => Batch.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,39 +29,7 @@ class PopularCourseDetailModal {
   };
 }
 
-class BatchPopularCourseDetail {
-  BatchPopularCourseDetail({
-    required this.id,
-    required this.adminId,
-    required this.catId,
-    required this.subCatId,
-    required this.batchName,
-    required this.startDate,
-    required this.endDate,
-    required this.startTime,
-    required this.endTime,
-    required this.batchType,
-    required this.batchPrice,
-    required this.batchOfferPrice,
-    required this.description,
-    required this.batchImage,
-    required this.noOfStudent,
-    required this.status,
-    required this.curriculum,
-    required this.admissiblity,
-    required this.certification,
-    required this.trainerGuide,
-    required this.placement,
-    required this.mentorship,
-    required this.totalDuration,
-    required this.totalLessons,
-    required this.totalSessions,
-    required this.totalQuizzes,
-    required this.totalActivities,
-    required this.batchImageUrl,
-    required this.faq,
-  });
-
+class Batch {
   String id;
   String adminId;
   String catId;
@@ -90,8 +59,42 @@ class BatchPopularCourseDetail {
   String totalActivities;
   String batchImageUrl;
   List<Faq> faq;
+  int isPurchased;
 
-  factory BatchPopularCourseDetail.fromJson(Map<String, dynamic> json) => BatchPopularCourseDetail(
+  Batch({
+    required this.id,
+    required this.adminId,
+    required this.catId,
+    required this.subCatId,
+    required this.batchName,
+    required this.startDate,
+    required this.endDate,
+    required this.startTime,
+    required this.endTime,
+    required this.batchType,
+    required this.batchPrice,
+    required this.batchOfferPrice,
+    required this.description,
+    required this.batchImage,
+    required this.noOfStudent,
+    required this.status,
+    required this.curriculum,
+    required this.admissiblity,
+    required this.certification,
+    required this.trainerGuide,
+    required this.placement,
+    required this.mentorship,
+    required this.totalDuration,
+    required this.totalLessons,
+    required this.totalSessions,
+    required this.totalQuizzes,
+    required this.totalActivities,
+    required this.batchImageUrl,
+    required this.faq,
+    required this.isPurchased,
+  });
+
+  factory Batch.fromJson(Map<String, dynamic> json) => Batch(
     id: json["id"],
     adminId: json["admin_id"],
     catId: json["cat_id"],
@@ -121,6 +124,7 @@ class BatchPopularCourseDetail {
     totalActivities: json["total_activities"],
     batchImageUrl: json["batch_image_url"],
     faq: List<Faq>.from(json["FAQ"].map((x) => Faq.fromJson(x))),
+    isPurchased: json["is_purchased"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -153,17 +157,18 @@ class BatchPopularCourseDetail {
     "total_activities": totalActivities,
     "batch_image_url": batchImageUrl,
     "FAQ": List<dynamic>.from(faq.map((x) => x.toJson())),
+    "is_purchased": isPurchased,
   };
 }
 
 class Faq {
+  String question;
+  String answer;
+
   Faq({
     required this.question,
     required this.answer,
   });
-
-  String question;
-  String answer;
 
   factory Faq.fromJson(Map<String, dynamic> json) => Faq(
     question: json["Question"],

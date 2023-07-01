@@ -6,7 +6,6 @@ class InitialBinding extends Bindings{
   @override
   void dependencies() {
     Get.lazyPut(() => ThemeController());
-    // TODO: implement dependencies
   }
 
 }

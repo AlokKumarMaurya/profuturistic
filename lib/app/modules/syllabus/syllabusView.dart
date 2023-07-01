@@ -1,34 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:profuturistic/app/modules/assignment/controllers/assignmentController.dart';
+import 'package:profuturistic/app/modules/syllabus/syllabusController.dart';
 
-import '../../../data/helperWidget/appHelperWidget.dart';
+import '../../data/helperWidget/appDimensions.dart';
+import '../../data/helperWidget/appHelperWidget.dart';
 
-class AssignmentView extends StatelessWidget {
-  const AssignmentView({Key? key}) : super(key: key);
+
+class SyllabusView extends StatelessWidget {
+  const SyllabusView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AssignmentController>(
-        init: AssignmentController(),
-        builder: (assignmentController) {
+    return GetBuilder<SyllabusController>(
+        init: SyllabusController(),
+        builder: (syllabusController) {
           return Scaffold(
             appBar: AppHelperWidget().appBar(),
             body: Stack(
               children: [
-                if (assignmentController.assignmentModal != null) ...{
+                if (syllabusController.testData != null) ...{
                   ListView.builder(
                     itemCount:
-                        assignmentController.assignmentModal!.data.length,
+                    syllabusController.testData!.length,
                     physics: const AlwaysScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemBuilder: (context, index) => Padding(
+                    itemBuilder: (context, index) =>Container(
+                      margin: EdgeInsets.symmetric(vertical: AppDimensions().h05),
+                      padding: EdgeInsets.symmetric(horizontal: AppDimensions().h05),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Theme.of(Get.context!).primaryColor)),
+                      child: ExpansionTile(
+                        shape: const RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.transparent),
+                        ),
+                        tilePadding: EdgeInsets.zero,
+                        expandedAlignment: Alignment.centerLeft,
+                        trailing: Transform.rotate(
+                          angle: 1.6,
+                          child: Icon(
+                            size: 30,
+                            Icons.send_rounded,
+                            color: Theme.of(Get.context!).primaryColor,
+                          ),
+                        ),
+                        title:Text(syllabusController.testData!.values.toList()[index].subjectName) ,
+                        children:syllabusController.testData!.values.toList()[index].chapterdata.map((e) {
+                          return Text(e.chapterName);
+                        }).toList(),
+                      ),
+                    ) /*Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(12)
+                            color: Colors.grey.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12)
                         ),
                         child: Row(
                           children: [
@@ -46,9 +72,9 @@ class AssignmentView extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(assignmentController
-                                          .assignmentModal!.data[index].subjectName,style: const TextStyle(
-                                        fontWeight: FontWeight.bold
+                                      Text(syllabusController
+                                          .syllabusModal!.data[index]!.subjectName,style: const TextStyle(
+                                          fontWeight: FontWeight.bold
                                       ),),
                                       Text(assignmentController
                                           .assignmentModal!.data[index].description)
@@ -69,14 +95,14 @@ class AssignmentView extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
+                    )*/,
                   )
                 } else ...{
                   const Center(
-                    child: Text("No Assignment pending"),
+                    child: Text("No Syllabus"),
                   )
                 },
-                if (assignmentController.isDataLoading) ...{
+                if (syllabusController.isDataLoading) ...{
                   Container(
                     alignment: Alignment.center,
                     height: Get.height,
