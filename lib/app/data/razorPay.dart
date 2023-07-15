@@ -18,7 +18,8 @@ class _RazorPayPaymentState extends State<RazorPayPayment> {
   @override
   void initState() {
     var options = {
-      'key': 'rzp_live_Xi5AQvd1r5FlMG',//'rzp_test_NusP3qSksQNHxf',
+      'key': 'rzp_live_Xi5AQvd1r5FlMG',//live
+      // 'key': 'rzp_test_NusP3qSksQNHxf', //dev
       'amount': widget.amount*100,
       'name': 'Pro Futuristic',
       'description': 'Enroll now',

@@ -42,4 +42,6 @@ class AppConstants {
   static var sendPaymentSuccessResponse="${baseUrl}student/purchaseBatch";
 
   static var getSyllabus="${baseUrl}student/getMyBatchSyllabusByStudentId/";
+
+  static var getZoomData="${baseUrl}student/live-class/";//ad201/67
 }

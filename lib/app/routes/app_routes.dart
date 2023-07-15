@@ -19,6 +19,7 @@ abstract class Routes {
   static const PURCHASED_POPULAR_COURSE = _Paths.PURCHASED_POPULAR_COURSE;
   static const ALL_POPULAR_COURSE = _Paths.ALL_POPULAR_COURSE;
   static const ASSIGNMENT = _Paths.ASSIGNMENT;
+  static const LiveClassView = _Paths.LiveClassView;
 }
 
 abstract class _Paths {
@@ -38,4 +39,5 @@ abstract class _Paths {
   static const PURCHASED_POPULAR_COURSE = '/purchased-popular-course';
   static const ALL_POPULAR_COURSE = '/all-popular-course';
   static const ASSIGNMENT = '/assignment';
+  static const LiveClassView = '/LiveClassView';
 }

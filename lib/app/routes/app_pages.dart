@@ -20,6 +20,7 @@ import '../modules/courses/views/courses_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/home/views/popular_course_view_all_view.dart';
+import '../modules/liveClass/liveClassView.dart';
 import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
 import '../modules/popularCourseDetail/bindings/popular_course_detail_binding.dart';
@@ -112,6 +113,10 @@ class AppPages {
     GetPage(
         name: _Paths.ASSIGNMENT,
         page: () => const AssignmentView(),
-        binding: AssignmentBinding())
+        binding: AssignmentBinding()),
+    GetPage(
+        name: _Paths.LiveClassView,
+        page: () => const LiveClassView(),
+    ),
   ];
 }

@@ -110,8 +110,7 @@ class ProfileView extends GetView<ProfileController> {
                         Icons.radar,
                         color: Theme.of(context).scaffoldBackgroundColor,
                       ),
-                      onClick: () => AppHelperFunction()
-                          .showGoodSnackBar(message: "Tile tap is working fine"),
+                      onClick: () =>Get.toNamed(Routes.LiveClassView),
                     ),
                     ProfileTileView(
                       title: "Assignment",
